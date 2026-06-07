@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ahmed Mustafa — AI Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;
+  --surface:#111118;
+  --surface2:#1a1a24;
+  --border:#ffffff14;
+  --border2:#ffffff22;
+  --text:#f0eeea;
+  --muted:#8a8796;
+  --accent:#7b6ef6;
+  --accent2:#4fd9c0;
+  --accent3:#f7935c;
+  --tag-bg:#1e1e2e;
+  --tag-text:#a09ec8;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden}
+
+/* noise overlay */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+
+/* grid lines */
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:80px 80px}
+
+main{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 2rem}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);backdrop-filter:blur(20px);background:rgba(10,10,15,.7)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .2s;letter-spacing:.02em}
+.nav-links a:hover{color:var(--text)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:6rem 0 4rem}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--accent2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeup .6s .2s forwards}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:800;line-height:1.05;letter-spacing:-.04em;margin-bottom:1.5rem;opacity:0;animation:fadeup .6s .35s forwards}
+.hero h1 .line2{color:transparent;-webkit-text-stroke:1px var(--border2)}
+.hero h1 .accent{color:var(--accent)}
+.hero-desc{max-width:520px;color:var(--muted);font-size:1.05rem;line-height:1.7;margin-bottom:2.5rem;opacity:0;animation:fadeup .6s .5s forwards}
+.hero-links{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeup .6s .65s forwards}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:8px;font-size:.875rem;font-weight:500;text-decoration:none;transition:all .2s;letter-spacing:.01em}
+.btn-primary{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+.btn-primary:hover{background:#6b5ee6;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border2)}
+.btn-ghost:hover{color:var(--text);border-color:var(--border2);background:var(--surface2);transform:translateY(-1px)}
+.hero-stats{display:flex;gap:3rem;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);opacity:0;animation:fadeup .6s .8s forwards}
+.stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--text)}
+.stat-label{font-size:.8rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-top:.15rem}
+
+/* ── SECTIONS ── */
+section{padding:5rem 0}
+.section-label{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1rem}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.03em;margin-bottom:3rem;line-height:1.1}
+.section-title span{color:var(--accent)}
+
+/* ── EXPERIENCE ── */
+.exp-item{display:grid;grid-template-columns:120px 1fr;gap:0 2.5rem;padding:2rem 0;border-top:1px solid var(--border);position:relative}
+.exp-item:last-child{border-bottom:1px solid var(--border)}
+.exp-date{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--muted);padding-top:.15rem;line-height:1.4}
+.exp-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.2rem}
+.exp-org{font-size:.875rem;color:var(--accent2);margin-bottom:.75rem;font-weight:500}
+.exp-desc{font-size:.9rem;color:var(--muted);line-height:1.65}
+.exp-badge{display:inline-block;font-size:.7rem;font-family:'DM Mono',monospace;background:#0f2e28;color:var(--accent2);border:1px solid #1a4a3f;padding:.2rem .65rem;border-radius:4px;margin-bottom:.75rem;letter-spacing:.06em}
+
+/* ── PROJECTS ── */
+.projects-grid{display:grid;gap:1.5px;background:var(--border)}
+.project-card{background:var(--bg);padding:2rem 2rem 1.75rem;transition:background .2s;cursor:default;position:relative;overflow:hidden}
+.project-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent)08,transparent 60%);opacity:0;transition:opacity .3s}
+.project-card:hover{background:var(--surface)}
+.project-card:hover::before{opacity:1}
+.project-card.featured{grid-column:1/-1}
+.project-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem}
+.project-icon{font-size:1.5rem;opacity:.7}
+.project-link{font-size:.75rem;font-family:'DM Mono',monospace;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.3rem;transition:color .2s}
+.project-link:hover{color:var(--accent2)}
+.project-card h3{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:.6rem;letter-spacing:-.02em;line-height:1.3}
+.project-card.featured h3{font-size:1.4rem}
+.project-desc{font-size:.875rem;color:var(--muted);line-height:1.6;margin-bottom:1.25rem}
+.project-live{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-family:'DM Mono',monospace;color:#4fd9c0;background:#0a2e28;border:1px solid #1a4a3f;padding:.25rem .7rem;border-radius:4px;margin-bottom:.75rem;letter-spacing:.04em}
+.project-live::before{content:'';width:6px;height:6px;background:#4fd9c0;border-radius:50%;animation:pulse 2s infinite}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto}
+.tag{font-size:.72rem;font-family:'DM Mono',monospace;background:var(--tag-bg);color:var(--tag-text);padding:.25rem .65rem;border-radius:4px;border:1px solid var(--border);letter-spacing:.02em}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border)}
+.skill-group{background:var(--bg);padding:1.75rem;transition:background .2s}
+.skill-group:hover{background:var(--surface)}
+.skill-group-title{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.04em;margin-bottom:1rem;color:var(--accent)}
+.skill-list{display:flex;flex-direction:column;gap:.5rem}
+.skill-item{font-size:.875rem;color:var(--muted);display:flex;align-items:center;gap:.5rem}
+.skill-item::before{content:'';width:3px;height:3px;background:var(--accent);border-radius:50%;flex-shrink:0}
+
+/* ── CONTACT ── */
+.contact-box{border:1px solid var(--border2);padding:3rem;text-align:center;position:relative;overflow:hidden}
+.contact-box::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,var(--accent)15,transparent 70%);pointer-events:none}
+.contact-box h2{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;margin-bottom:.75rem;letter-spacing:-.03em;position:relative}
+.contact-box p{color:var(--muted);margin-bottom:2rem;position:relative}
+.contact-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative}
+
+/* ── FOOTER ── */
+footer{padding:2rem 0;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--muted)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:640px){
+  .exp-item{grid-template-columns:1fr;gap:.5rem}
+  .exp-date{font-size:.75rem}
+  .hero-stats{gap:2rem}
+  .contact-box{padding:2rem 1.5rem}
+  nav .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<nav>
+  <a href="#" class="nav-logo">AM<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-eyebrow">AI Engineer · Cairo, Egypt</p>
+    <h1>
+      Building<br>
+      <span class="accent">intelligent</span><br>
+      <span class="line2">systems.</span>
+    </h1>
+    <p class="hero-desc">
+      I engineer production AI systems — multi-agent platforms, RAG pipelines, and LLM applications — that solve real problems at scale. My work is currently used by Egyptian government agencies.
+    </p>
+    <div class="hero-links">
+      <a href="https://github.com/Amustafa134" target="_blank" class="btn btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/ahmed-mustafa-45aa98259/" target="_blank" class="btn btn-ghost">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:aamustafa134@gmail.com" class="btn btn-ghost">
+        aamustafa134@gmail.com
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Production Projects</div>
+      </div>
+      <div>
+        <div class="stat-num">1</div>
+        <div class="stat-label">Gov. Agency Client</div>
+      </div>
+      <div>
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Years Building AI</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="reveal">
+      <p class="section-label">Career</p>
+      <h2 class="section-title">Where I've <span>worked</span></h2>
+    </div>
+
+    <div class="reveal">
+      <div class="exp-item">
+        <div class="exp-date">2023<br>Present</div>
+        <div>
+          <span class="exp-badge">● CURRENT</span>
+          <div class="exp-title">AI Engineering Intern</div>
+          <div class="exp-org">Digital Hub Company · New Cairo</div>
+          <div class="exp-desc">Building and deploying production AI systems — LLM chatbots, RAG pipelines, and multi-agent platforms — integrated with enterprise environments using FastAPI, LangChain, Azure OpenAI, and Docker. Delivered a live platform now in active use by CAPMAS, Egypt's national statistics agency.</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">2022<br>2023</div>
+        <div>
+          <div class="exp-title">Data Analysis Intern</div>
+          <div class="exp-org">Digital Hub × CAPMAS · New Cairo</div>
+          <div class="exp-desc">Data collection, cleaning, and statistical analysis for national government databases supporting Egypt's digital transformation initiative.</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">2020<br>2024</div>
+        <div>
+          <div class="exp-title">BSc Computer Science</div>
+          <div class="exp-org">Nile University · Zayed, Giza</div>
+          <div class="exp-desc">Coursework: Linear Algebra, Probability & Statistics, Optimization, Data Structures & Algorithms, Machine Learning.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <p class="section-label">Work</p>
+      <h2 class="section-title">Things I've <span>built</span></h2>
+    </div>
+
+    <div class="reveal projects-grid" style="grid-template-columns:repeat(2,1fr)">
+
+      <div class="project-card featured" style="grid-column:1/-1">
+        <div class="project-header">
+          <span class="project-icon">🏛️</span>
+          <a href="https://github.com/Amustafa134" target="_blank" class="project-link">github ↗</a>
+        </div>
+        <span class="project-live">live in production</span>
+        <h3>Multi-Agent AI Statistical Intelligence Platform</h3>
+        <p style="font-size:.8rem;color:#4fd9c0;margin-bottom:.5rem;font-family:'DM Mono',monospace">CAPMAS — Egyptian Government</p>
+        <p class="project-desc">Hierarchical multi-agent platform enabling natural language querying of large-scale government demographic datasets. A Super Agent dynamically routes queries to domain-specialized leaf agents, each owning distinct statistical data. Minimizes hallucinations by grounding all responses against live data sources before answering.</p>
+        <div class="tags">
+          <span class="tag">LangGraph</span><span class="tag">Multi-Agent</span><span class="tag">LLMs</span><span class="tag">RAG</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Data Engineering</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-icon">💬</span>
+          <a href="https://github.com/Amustafa134" target="_blank" class="project-link">github ↗</a>
+        </div>
+        <h3>Generative AI Data Assistant</h3>
+        <p class="project-desc">Text-to-SQL application using Azure OpenAI GPT and LangChain. Multi-stage LLM workflow: schema-aware SQL generation → validation → execution → human-readable synthesis. SELECT-only safeguards prevent unsafe queries.</p>
+        <div class="tags">
+          <span class="tag">Azure OpenAI</span><span class="tag">LangChain</span><span class="tag">Text-to-SQL</span><span class="tag">FastAPI</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-icon">🚗</span>
+          <a href="https://github.com/Amustafa134" target="_blank" class="project-link">github ↗</a>
+        </div>
+        <h3>RAG Assistant — Automotive Docs</h3>
+        <p class="project-desc">RAG pipeline with fine-tuned Llama grounded in car technical manuals. Interprets dashboard warnings with actionable safety recommendations. Optimized chunking reduces hallucinations significantly.</p>
+        <div class="tags">
+          <span class="tag">Llama (fine-tuned)</span><span class="tag">LangChain</span><span class="tag">Qdrant</span><span class="tag">RAG</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-icon">📄</span>
+          <a href="https://github.com/Amustafa134" target="_blank" class="project-link">github ↗</a>
+        </div>
+        <h3>SmartHire-AI</h3>
+        <p class="project-desc">Scalable FastAPI backend for async resume processing. Clean architecture with dependency injection, modular service layers, and Docker deployment. Built for enterprise-grade reliability and security.</p>
+        <div class="tags">
+          <span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">Python</span><span class="tag">REST API</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-icon">🔍</span>
+          <a href="https://github.com/Amustafa134" target="_blank" class="project-link">github ↗</a>
+        </div>
+        <h3>RAG Microservice — Doc Search</h3>
+        <p class="project-desc">FastAPI microservice for .txt/.pdf ingestion with async processing, LangChain chunking, MongoDB metadata storage, and Qdrant semantic search. Modular LLM + vector store factories.</p>
+        <div class="tags">
+          <span class="tag">FastAPI</span><span class="tag">MongoDB</span><span class="tag">Qdrant</span><span class="tag">LangChain</span><span class="tag">Docker</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <p class="section-label">Stack</p>
+      <h2 class="section-title">What I <span>work with</span></h2>
+    </div>
+    <div class="reveal skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">AI & LLMs</div>
+        <div class="skill-list">
+          <span class="skill-item">LangChain / LangGraph</span>
+          <span class="skill-item">RAG Systems</span>
+          <span class="skill-item">Multi-Agent Systems</span>
+          <span class="skill-item">Fine-tuning (Llama, LoRA)</span>
+          <span class="skill-item">HuggingFace</span>
+          <span class="skill-item">Prompt Engineering</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Backend</div>
+        <div class="skill-list">
+          <span class="skill-item">Python</span>
+          <span class="skill-item">FastAPI</span>
+          <span class="skill-item">REST APIs</span>
+          <span class="skill-item">Microservices</span>
+          <span class="skill-item">Docker</span>
+          <span class="skill-item">SQL / Bash</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Cloud & Data</div>
+        <div class="skill-list">
+          <span class="skill-item">Microsoft Azure</span>
+          <span class="skill-item">Azure OpenAI</span>
+          <span class="skill-item">MongoDB</span>
+          <span class="skill-item">MySQL</span>
+          <span class="skill-item">Qdrant</span>
+          <span class="skill-item">Vector Databases</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Foundations</div>
+        <div class="skill-list">
+          <span class="skill-item">Linear Algebra</span>
+          <span class="skill-item">Probability & Statistics</span>
+          <span class="skill-item">Optimization</span>
+          <span class="skill-item">Machine Learning</span>
+          <span class="skill-item">Data Engineering</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal contact-box">
+      <h2>Let's build something.</h2>
+      <p>Open to full-time AI engineering roles in Cairo, remote within Egypt, or remote internationally.</p>
+      <div class="contact-links">
+        <a href="mailto:aamustafa134@gmail.com" class="btn btn-primary">aamustafa134@gmail.com</a>
+        <a href="https://www.linkedin.com/in/ahmed-mustafa-45aa98259/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+        <a href="https://github.com/Amustafa134" target="_blank" class="btn btn-ghost">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Ahmed Mustafa Kamel · AI Engineer</span>
+    <span>Cairo, Egypt</span>
+  </footer>
+
+</main>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
