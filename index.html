@@ -286,15 +286,16 @@ footer{padding:2rem 0;border-top:1px solid var(--border);display:flex;justify-co
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card featured" style="grid-column:1/-1">
         <div class="project-header">
-          <span class="project-icon">🔍</span>
-          <a href="https://github.com/Amustafa134/mini-rag" target="_blank" class="project-link">github ↗</a>
+          <span class="project-icon">🧾</span>
+          <a href="https://github.com/Amustafa134/eta-einvoice-assistant" target="_blank" class="project-link">github ↗</a>
         </div>
-        <h3>RAG Microservice — Doc Search</h3>
-        <p class="project-desc">FastAPI microservice for .txt/.pdf ingestion with async processing, LangChain chunking, MongoDB metadata storage, and Qdrant semantic search. Modular LLM + vector store factories.</p>
+        <h3>ETA E-Invoice Assistant — Bilingual RAG System</h3>
+        <p style="font-size:.8rem;color:#4fd9c0;margin-bottom:.5rem;font-family:'DM Mono',monospace">Cross-lingual · Arabic/English · Evaluated with RAGAS</p>
+        <p class="project-desc">Bilingual RAG assistant over official Egyptian Tax Authority e-invoicing regulations — ask in Arabic or English, retrieves from the Arabic source either way. Diagnosed and fixed systematic Arabic text corruption from broken PDF font encoding by rebuilding ingestion around OCR. Quantitatively evaluated with RAGAS across 15 ground-truth Q&A pairs — a measured chunking iteration improved context recall by 41% (0.378 → 0.533). Deployed as a FastAPI service with page-level source citations, backed by a 15-test automated suite.</p>
         <div class="tags">
-          <span class="tag">FastAPI</span><span class="tag">MongoDB</span><span class="tag">Qdrant</span><span class="tag">LangChain</span><span class="tag">Docker</span>
+          <span class="tag">RAG</span><span class="tag">OCR</span><span class="tag">Qdrant</span><span class="tag">Azure OpenAI</span><span class="tag">RAGAS</span><span class="tag">FastAPI</span><span class="tag">Arabic NLP</span>
         </div>
       </div>
 
